@@ -1,4 +1,4 @@
-package org.omoknoone.ppm.domain.Role.aggregate;
+package org.omoknoone.ppm.domain.role.aggregate;
 
 import jakarta.persistence.*;
 import lombok.*;

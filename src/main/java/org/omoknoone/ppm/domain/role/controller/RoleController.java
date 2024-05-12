@@ -1,9 +1,9 @@
-package org.omoknoone.ppm.domain.Role.controller;
+package org.omoknoone.ppm.domain.role.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.omoknoone.ppm.common.ResponseMessage;
-import org.omoknoone.ppm.domain.Role.dto.ViewRoleListResponseDTO;
-import org.omoknoone.ppm.domain.Role.service.RoleService;
+import org.omoknoone.ppm.domain.role.dto.ViewRoleListResponseDTO;
+import org.omoknoone.ppm.domain.role.service.RoleService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package org.omoknoone.ppm.domain.Role.repository;
+package org.omoknoone.ppm.domain.role.repository;
 
-import org.omoknoone.ppm.domain.Role.aggregate.Role;
+import org.omoknoone.ppm.domain.role.aggregate.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role, Integer> {

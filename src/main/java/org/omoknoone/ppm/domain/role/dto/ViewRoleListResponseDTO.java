@@ -1,4 +1,4 @@
-package org.omoknoone.ppm.domain.Role.dto;
+package org.omoknoone.ppm.domain.role.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

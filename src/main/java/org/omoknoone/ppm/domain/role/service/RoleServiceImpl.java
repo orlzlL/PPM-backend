@@ -1,11 +1,11 @@
-package org.omoknoone.ppm.domain.Role.service;
+package org.omoknoone.ppm.domain.role.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.omoknoone.ppm.domain.Role.aggregate.Role;
-import org.omoknoone.ppm.domain.Role.dto.ViewRoleListResponseDTO;
-import org.omoknoone.ppm.domain.Role.repository.RoleRepository;
+import org.omoknoone.ppm.domain.role.aggregate.Role;
+import org.omoknoone.ppm.domain.role.dto.ViewRoleListResponseDTO;
+import org.omoknoone.ppm.domain.role.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
