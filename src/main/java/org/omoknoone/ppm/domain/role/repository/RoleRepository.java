@@ -4,4 +4,5 @@ import org.omoknoone.ppm.domain.role.aggregate.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role, Integer> {
+    Role findRoleByRoleId(int RoleId);
 }

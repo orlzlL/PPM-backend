@@ -24,4 +24,9 @@ public class RoleServiceImpl implements RoleService {
 
         return modelMapper.map(role, new TypeToken<List<ViewRoleListResponseDTO>>() {}.getType());
     }
+
+    @Override
+    public String viewRoleNameByRoleId(int projectMemberRoleId) {
+        return roleRepository.findRoleByRoleId(projectMemberRoleId).getRoleName();
+    }
 }

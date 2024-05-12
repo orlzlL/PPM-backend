@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RoleService {
     List<ViewRoleListResponseDTO> viewRoleList();
+
+    String viewRoleNameByRoleId(int projectMemberRoleId);
 }

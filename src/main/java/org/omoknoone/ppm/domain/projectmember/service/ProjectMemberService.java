@@ -4,6 +4,7 @@ import org.omoknoone.ppm.domain.projectmember.dto.CreateProjectMemberRequestDTO;
 import org.omoknoone.ppm.domain.projectmember.dto.ModifyProjectMemberRequestDTO;
 import org.omoknoone.ppm.domain.projectmember.dto.viewProjectMembersByProjectResponseDTO;
 
+import java.io.Serializable;
 import java.util.List;
 
 public interface ProjectMemberService {
@@ -15,4 +16,5 @@ public interface ProjectMemberService {
 
     Integer modifyProjectMember(ModifyProjectMemberRequestDTO modifyProjectMemberRequestDTO);
 
+    String checkProjectPermission(Serializable projectMemberId);
 }

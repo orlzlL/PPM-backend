@@ -12,7 +12,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id", nullable = false)
-    private Integer id;
+    private Integer roleId;
 
     @Column(name = "role_name", nullable = false, length = 16)
     private String roleName;
@@ -24,8 +24,8 @@ public class Role {
     private String roleDeletedDate;
 
     @Builder
-    public Role(Integer id, String roleName, Boolean roleIsDeleted, String roleDeletedDate) {
-        this.id = id;
+    public Role(Integer roleId, String roleName, Boolean roleIsDeleted, String roleDeletedDate) {
+        this.roleId = roleId;
         this.roleName = roleName;
         this.roleIsDeleted = roleIsDeleted;
         this.roleDeletedDate = roleDeletedDate;

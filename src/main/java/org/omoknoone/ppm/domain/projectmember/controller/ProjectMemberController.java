@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.Charset;
@@ -81,6 +82,14 @@ public class ProjectMemberController {
                     .status(HttpStatus.NOT_FOUND)
                     .body(new ResponseMessage(404, "구성원을 찾을 수 없습니다.", null));
         }
+    }
+
+//    @PreAuthorize("hasPermission(#projectMemberId, 'PM', 'read')")
+    @PreAuthorize("hasPermission(#projectMemberId, 'PM', 'read')")
+    @GetMapping("/health/{projectMemberId}")
+    public String healthCheck(@PathVariable int projectMemberId) {
+        log.info("healthCheck()");
+        return "된다!";
     }
 
 }
