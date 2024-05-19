@@ -17,7 +17,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_id", nullable = false)
-    private Integer id;
+    private Integer projectId;
 
     @Column(name = "project_title", nullable = false, length = 30)
     private String projectTitle;
@@ -40,8 +40,8 @@ public class Project {
     private String projectModifiedDate;
 
     @Builder
-    public Project(Integer id, String projectTitle, LocalDateTime projectStartDate, LocalDateTime projectEndDate, int projectStatus, String projectCreatedDate, String projectModifiedDate) {
-        this.id = id;
+    public Project(Integer projectId, String projectTitle, LocalDateTime projectStartDate, LocalDateTime projectEndDate, int projectStatus, String projectCreatedDate, String projectModifiedDate) {
+        this.projectId = projectId;
         this.projectTitle = projectTitle;
         this.projectStartDate = projectStartDate;
         this.projectEndDate = projectEndDate;

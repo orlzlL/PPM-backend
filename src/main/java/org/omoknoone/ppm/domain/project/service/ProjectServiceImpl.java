@@ -21,7 +21,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional
     @Override
     public int createProject(CreateProjectRequestDTO createProjectRequestDTO) {
-        return projectRepository.save(modelMapper.map(createProjectRequestDTO, Project.class)).getId();
+        return projectRepository.save(modelMapper.map(createProjectRequestDTO, Project.class)).getProjectId();
     }
 
     @Transactional
@@ -32,6 +32,6 @@ public class ProjectServiceImpl implements ProjectService {
                                                 .orElseThrow(IllegalArgumentException::new);
         project.modify(modifyProjectRequestDTO);
 
-        return projectRepository.save(project).getId();
+        return projectRepository.save(project).getProjectId();
     }
 }

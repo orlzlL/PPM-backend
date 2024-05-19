@@ -36,15 +36,23 @@ public class Task {
     @JoinColumn(name = "task_schedule_id", nullable = false)
     private Long taskScheduleId;
 
+    @JoinColumn(name = "project_id", nullable = false)
+    private Long projectId;
+
+    @JoinColumn(name = "employee_id", nullable = false)
+    private String employeeId;
+
     @Builder
     public Task(Long taskId, String taskTitle, Boolean taskIsCompleted, Boolean taskIsDeleted,
-        LocalDateTime taskDeletedDate, Long taskScheduleId) {
+        LocalDateTime taskDeletedDate, Long taskScheduleId, Long projectId, String employeeId) {
         this.taskId = taskId;
         this.taskTitle = taskTitle;
         this.taskIsCompleted = taskIsCompleted!= null ? taskIsCompleted : false; // 기본값 설정
         this.taskIsDeleted = taskIsDeleted != null ? taskIsDeleted : false; // 기본값 설정
         this.taskDeletedDate = taskDeletedDate;
         this.taskScheduleId = taskScheduleId;
+        this.projectId = projectId;
+        this.employeeId = employeeId;
     }
 
     public void modify(ModifyTaskDTO modifyTaskDTO) {
