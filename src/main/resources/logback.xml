@@ -42,6 +42,9 @@
     <logger name="org.hibernate" level="DEBUG">
     </logger>
 
+    <logger name="org.mongodb" level="INFO" >
+    </logger>
+
     <root level="INFO">
         <appender-ref ref="ROLLING"/>
         <appender-ref ref="STDOUT" />
