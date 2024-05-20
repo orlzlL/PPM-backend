@@ -1,10 +1,14 @@
 package org.omoknoone.ppm.domain.projectmember.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.omoknoone.ppm.common.annotation.NoLogIfDraft;
+import org.omoknoone.ppm.common.enums.RecordingTarget;
 import org.omoknoone.ppm.domain.projectmember.aggregate.ProjectMember;
 import org.omoknoone.ppm.domain.projectmember.dto.CreateProjectMemberRequestDTO;
 import org.omoknoone.ppm.domain.projectmember.dto.ModifyProjectMemberRequestDTO;
+import org.omoknoone.ppm.domain.projectmember.dto.ProjectMemberDTO;
 import org.omoknoone.ppm.domain.projectmember.dto.viewProjectMembersByProjectResponseDTO;
 import org.omoknoone.ppm.domain.projectmember.repository.ProjectMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ProjectMemberServiceImpl implements ProjectMemberService {
 
@@ -84,6 +89,12 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
         ProjectMember projectMember = projectMemberRepository.
                 findByProjectMemberEmployeeIdAndProjectMemberProjectId(employeeId, projectId);
         return projectMember.getProjectMemberId();
+    }
+
+    @NoLogIfDraft(RecordingTarget.PROJECT_MEMBER)
+    @Override
+    public void healthCheck(ProjectMemberDTO projectMemberDTO) {
+        log.info("[service] 작동! : {}", projectMemberDTO);
     }
 
 }

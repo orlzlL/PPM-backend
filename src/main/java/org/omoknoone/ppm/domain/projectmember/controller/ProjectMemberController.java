@@ -7,6 +7,7 @@ import org.omoknoone.ppm.common.ResponseMessage;
 import org.omoknoone.ppm.common.annotation.Permission;
 import org.omoknoone.ppm.domain.projectmember.dto.CreateProjectMemberRequestDTO;
 import org.omoknoone.ppm.domain.projectmember.dto.ModifyProjectMemberRequestDTO;
+import org.omoknoone.ppm.domain.projectmember.dto.ProjectMemberDTO;
 import org.omoknoone.ppm.domain.projectmember.dto.viewProjectMembersByProjectResponseDTO;
 import org.omoknoone.ppm.domain.projectmember.service.ProjectMemberService;
 import org.springframework.http.HttpHeaders;
@@ -127,6 +128,14 @@ public class ProjectMemberController {
                     .status(HttpStatus.NOT_FOUND)
                     .body(new ResponseMessage(404, "구성원을 찾을 수 없음."));
         }
+    }
+
+    @GetMapping("/health")
+    public String healthCheck() {
+        String str1 = "parameter_test";
+        ProjectMemberDTO projectMemberDTO = new ProjectMemberDTO(str1, 10);
+        projectMemberService.healthCheck(projectMemberDTO);
+        return "됨!";
     }
 
 }
