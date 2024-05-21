@@ -64,11 +64,11 @@ public class ProjectController {
     @GetMapping("/workingDaysDivideTen")
     public ResponseEntity<List<LocalDate>> divideWorkingDays(
         @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-        @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
-    ) {
+        @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+        
         List<LocalDate> dividedDates = projectService.divideWorkingDaysIntoTen(startDate, endDate);
         return ResponseEntity.ok(dividedDates);
-
+    }
     // 프로젝트 복사(프로젝트, 일정)
     @PostMapping("/copy/{copyProjectId}")
     public ResponseEntity<ResponseMessage> copyProject(@PathVariable int copyProjectId) {
