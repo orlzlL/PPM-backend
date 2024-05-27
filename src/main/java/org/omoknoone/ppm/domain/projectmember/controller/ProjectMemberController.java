@@ -1,22 +1,17 @@
 package org.omoknoone.ppm.domain.projectmember.controller;
 
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.omoknoone.ppm.common.HttpHeadersCreator;
 import org.omoknoone.ppm.common.ResponseMessage;
-import org.omoknoone.ppm.common.annotation.Permission;
+import org.omoknoone.ppm.common.HttpHeadersCreator;
 import org.omoknoone.ppm.domain.projectmember.dto.CreateProjectMemberRequestDTO;
 import org.omoknoone.ppm.domain.projectmember.dto.ModifyProjectMemberRequestDTO;
-import org.omoknoone.ppm.domain.projectmember.dto.viewProjectMembersByProjectResponseDTO;
+import org.omoknoone.ppm.domain.projectmember.dto.ViewProjectMembersByProjectResponseDTO;
 import org.omoknoone.ppm.domain.projectmember.service.ProjectMemberService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +29,7 @@ public class ProjectMemberController {
 
         HttpHeaders headers = HttpHeadersCreator.createHeaders();
 
-        List<viewProjectMembersByProjectResponseDTO> responseDTOs
+        List<ViewProjectMembersByProjectResponseDTO> responseDTOs
                 = projectMemberService.viewProjectMembersByProject(projectId);
 
         Map<String, Object> responseMap = new HashMap<>();
@@ -44,6 +39,23 @@ public class ProjectMemberController {
                 .ok()
                 .headers(headers)
                 .body(new ResponseMessage(200, "프로젝트 구성원 조회 성공", responseMap));
+    }
+
+    @GetMapping("/availableMembers/{projectId}")
+    public ResponseEntity<ResponseMessage> viewAvailableMembers(@PathVariable("projectId") Integer projectId, @RequestParam String query) {
+
+        HttpHeaders headers = HttpHeadersCreator.createHeaders();
+
+        List<ViewProjectMembersByProjectResponseDTO> responseDTOs
+                = projectMemberService.viewAvailableMembers(projectId, query);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("viewAvailableMembers", responseDTOs);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new ResponseMessage(200, "구성원 목록 조회 성공", responseMap));
     }
 
     @PostMapping("/create")
@@ -62,80 +74,29 @@ public class ProjectMemberController {
                 .body(new ResponseMessage(200, "성공적으로 구성원이 추가 완료.", responseMap));
     }
 
-    @DeleteMapping("/remove/{projectMemberId}")
-    public ResponseEntity<ResponseMessage> removeProjectMember(
-            @PathVariable Integer projectMemberId,
-            @RequestBody ModifyProjectMemberRequestDTO requestDTO) {
-
-        HttpHeaders headers = HttpHeadersCreator.createHeaders();
-
-        requestDTO.setProjectMemberId(projectMemberId);
-
-        try {
-            projectMemberService.removeProjectMember(requestDTO);
-            Map<String, Object> responseMap = new HashMap<>();
-            responseMap.put("removeProjectMember", projectMemberId);
-
-            return ResponseEntity
-                    .ok()
-                    .headers(headers)
-                    .body(new ResponseMessage(200, "구성원 제외 성공", responseMap));
-        } catch (EntityNotFoundException ex) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new ResponseMessage(404, "구성원을 찾을 수 없음."));
-        }
-    }
-
-    @PutMapping("/reactivate/{projectMemberId}")
-    public ResponseEntity<ResponseMessage> reactivateProjectMember(
-            @PathVariable Integer projectMemberId,
-            @RequestBody ModifyProjectMemberRequestDTO requestDTO) {
-
-        HttpHeaders headers = HttpHeadersCreator.createHeaders();
-
-        requestDTO.setProjectMemberId(projectMemberId);
-
-        try {
-            projectMemberService.reactivateProjectMember(requestDTO);
-            Map<String, Object> responseMap = new HashMap<>();
-            responseMap.put("reactivateProjectMember", projectMemberId);
-
-            return ResponseEntity
-                    .ok()
-                    .headers(headers)
-                    .body(new ResponseMessage(200, "구성원 활성화가 완료.", responseMap));
-        } catch (EntityNotFoundException ex) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new ResponseMessage(404, "구성원을 찾을 수 없음."));
-        } catch (IllegalStateException ex) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(new ResponseMessage(400, "이미 활성화된 구성원입니다. 다시 활성화할 수 없습니다."));
-        }
-    }
-
     @PutMapping("/modify/{projectMemberId}")
-    public ResponseEntity<ResponseMessage> modifyProjectMember(@RequestBody ModifyProjectMemberRequestDTO requestDTO) {
+    public ResponseEntity<ResponseMessage> modifyProjectMember(@PathVariable("projectMemberId") Integer projectMemberId, @RequestBody ModifyProjectMemberRequestDTO requestDTO) {
 
         HttpHeaders headers = HttpHeadersCreator.createHeaders();
 
-        try {
-            Integer projectMemberId = projectMemberService.modifyProjectMember(requestDTO);
+        projectMemberService.modifyProjectMember(projectMemberId, requestDTO);
 
-            Map<String, Object> responseMap = new HashMap<>();
-            responseMap.put("modifyProjectMember", projectMemberId);
-
-            return ResponseEntity
-                    .ok()
-                    .headers(headers)
-                    .body(new ResponseMessage(200, "구성원의 권한 수정이 완료.", responseMap));
-        } catch (EntityNotFoundException ex) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new ResponseMessage(404, "구성원을 찾을 수 없음."));
-        }
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new ResponseMessage(200, "구성원 정보가 성공적으로 업데이트되었습니다.", null));
     }
 
+    @PutMapping("/remove/{projectMemberId}")
+    public ResponseEntity<ResponseMessage> removeProjectMember(@PathVariable("projectMemberId") Integer projectMemberId) {
+
+        HttpHeaders headers = HttpHeadersCreator.createHeaders();
+
+        projectMemberService.removeProjectMember(projectMemberId);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new ResponseMessage(200, "구성원이 성공적으로 제외되었습니다.", null));
+    }
 }
